@@ -3,6 +3,8 @@ from torch.utils.data import DataLoader
 from torchvision.transforms import ToTensor
 from torchvision.models.detection import fasterrcnn_resnet50_fpn, FasterRCNN_ResNet50_FPN_Weights
 import torch
+from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
+from tqdm.autonotebook import tqdm
 
 def collate_fn(batch):
     images, labels = zip(*batch)
@@ -10,32 +12,43 @@ def collate_fn(batch):
 
 def train():
     device = torch.device("cuda") if torch.cuda.is_available() else "cpu"
+    num_epochs = 100
+    batch_size = 8
     transform = ToTensor()
     train = VOCDataset(root='./VOC2012', year='2012', image_set='train', download=False, transform=transform)
     
     train_dataloader = DataLoader(
         dataset=train,
-        batch_size=4,
+        batch_size=batch_size,
         shuffle=True,
         num_workers=4,
         collate_fn=collate_fn
     )
     
-    model = fasterrcnn_resnet50_fpn(weights=FasterRCNN_ResNet50_FPN_Weights.DEFAULT).to(device)
-    model.train()
+    model = fasterrcnn_resnet50_fpn(weights=FasterRCNN_ResNet50_FPN_Weights.DEFAULT)
+    in_features = model.roi_heads.box_predictor.cls_score.in_features
+    model.roi_heads.box_predictor = FastRCNNPredictor(in_features, num_classes=len(train.categories))
+    model.to(device=device)
+    
     optimizer = torch.optim.SGD(model.parameters(), lr=1e-3, momentum=0.9)
-    for images, labels in train_dataloader:
-        images = [image.to(device) for image in images]
-        labels = [{k: v.to(device) for k, v in target.items()} for target in labels]
+    
+    for epoch in range(num_epochs):
+        model.train()
+        progress_bar = tqdm(train_dataloader, colour="cyan")
+        for images, labels in progress_bar:
+            images = [image.to(device) for image in images]
+            labels = [{k: v.to(device) for k, v in target.items()} for target in labels]
 
-        # Lan truyền tiến
-        losses = model(images, labels)
-        final_loss = sum(loss for loss in losses.values())
-        print(final_loss)
-        
-        # Lan truyền lui
-        optimizer.zero_grad()
-        final_loss.backward()
-        optimizer.step()
+            # forward
+            losses = model(images, labels)
+            final_loss = sum(loss for loss in losses.values())
+            
+            # backward
+            optimizer.zero_grad()
+            final_loss.backward()
+            optimizer.step()
+            
+            progress_bar.set_description("Epoch {}/{}. Loss: {:.4f}".format(epoch+1, num_epochs, final_loss.item()))
+
 if __name__ == '__main__':
     train()

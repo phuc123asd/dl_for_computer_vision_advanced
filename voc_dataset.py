@@ -6,7 +6,7 @@ from pprint import pprint
 class VOCDataset(VOCDetection):
     def __init__(self, root, year, image_set, download, transform):
         super().__init__(root, year, image_set, download, transform)
-        self.categories = ["aeroplane", "bicycle", "bird", "boat", "bottle", "bus", "car", "cat", "chair", "cow", "diningtable", "dog", "horse", "motorbike", "person", "pottedplant", "sheep", "sofa", "train", "tvmonitor"]
+        self.categories = VOC_CLASSES = ["background", "aeroplane", "bicycle", "bird", "boat", "bottle", "bus", "car", "cat", "chair", "cow", "diningtable", "dog", "horse", "motorbike", "person", "pottedplant", "sheep", "sofa", "train", "tvmonitor"]
 
     def __getitem__(self, item):
         image, data = super().__getitem__(item)
