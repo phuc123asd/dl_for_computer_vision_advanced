@@ -13,7 +13,7 @@ def collate_fn(batch):
 def train():
     device = torch.device("cuda") if torch.cuda.is_available() else "cpu"
     num_epochs = 100
-    batch_size = 3
+    batch_size = 5
     transform = ToTensor()
     train = VOCDataset(root='./VOC2012', year='2012', image_set='train', download=False, transform=transform)
     
