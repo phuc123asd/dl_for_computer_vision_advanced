@@ -1,7 +1,3 @@
-Dưới đây là **một file `README.md` hoàn chỉnh** cho project **Faster R-CNN Animal Detection (VOC Dataset)** có **video demo, cấu trúc project, cài đặt, training, inference**. Bạn có thể **copy toàn bộ vào file `README.md`**.
-
----
-
 # 🐾 Animal Detection with Faster R-CNN
 
 Deep Learning project for detecting animals in images using the **Faster R-CNN** object detection architecture trained on the **PASCAL VOC dataset**.
@@ -40,13 +36,11 @@ These classes are extracted from the **PASCAL VOC dataset**.
 
 Click the image below to watch the demo video.
 
-```md
-[![Watch Demo](https://img.youtube.com/vi/YOUR_VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=YOUR_VIDEO_ID)
-```
+Video befor:
 
-Example display in README:
+https://github.com/user-attachments/assets/6a8ddeb6-4a0f-495b-945a-7387a8cc61ee
 
-[![Watch Demo](https://img.youtube.com/vi/YOUR_VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=YOUR_VIDEO_ID)
+Video after:
 
 ---
 
@@ -156,7 +150,7 @@ pip install numpy matplotlib opencv-python
 Train the Faster R-CNN model:
 
 ```bash
-python train.py
+python train_faster_RCNN.py
 ```
 
 Training pipeline:
@@ -174,7 +168,7 @@ Training pipeline:
 Run detection on a test image:
 
 ```bash
-python detect.py --image test.jpg
+python test_faster_RCNN.py
 ```
 
 Output:
@@ -190,18 +184,12 @@ Output:
 ```
 faster-rcnn-animal-detection
 │
-├── dataset
-│   └── VOC
+├── fasterrcnn_mobilenet_weight.pth # checkpoin
 │
-├── models
-│   └── faster_rcnn.py
 │
-├── train.py
-├── detect.py
-├── utils.py
-│
-├── demo
-│   └── demo_images
+├── test_faster_RCNN.py
+├── train_faster_RCNN.py
+|
 │
 └── README.md
 ```
@@ -241,22 +229,3 @@ Interested in:
 * Deep Learning
 * Computer Vision
 * Building AI models from scratch
-
----
-
-💡 **Tip:** Nếu bạn muốn README **đẹp hơn như repo AI chuyên nghiệp**, bạn có thể thêm:
-
-* GitHub badges
-* model results (mAP)
-* architecture diagram
-* detection images
-
-Nếu bạn muốn, tôi có thể viết thêm **README phiên bản "xịn" hơn (chuẩn repo AI research)** với:
-
-* 🔥 badges
-* 📊 mAP results table
-* 🧠 architecture diagram
-* 🖼 detection images
-* 🎥 demo GIF
-
-nhìn giống **repo của OpenAI / Meta AI**.
