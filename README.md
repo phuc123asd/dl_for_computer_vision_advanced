@@ -36,11 +36,15 @@ These classes are extracted from the **PASCAL VOC dataset**.
 
 Click the image below to watch the demo video.
 
-Video befor:
+Image befor:
 
-https://github.com/user-attachments/assets/6a8ddeb6-4a0f-495b-945a-7387a8cc61ee
+<img width="2568" height="1926" alt="image" src="https://github.com/user-attachments/assets/0dd9d43c-1a0c-429f-bb28-3852967ba629" />
 
-Video after:
+
+Image after:
+
+<img width="2568" height="1926" alt="output_image" src="https://github.com/user-attachments/assets/2ac2509a-4c11-452f-9d20-bb60a74d9deb" />
+
 
 ---
 
